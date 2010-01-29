@@ -6,7 +6,7 @@ SYNOPSIS
         use AnyEvent::Filesys::Notify;
 
         my $notifier = AnyEvent::Filesys::Notify->new(
-            dir      => [ qw( this_dir that_dir ) ],
+            dirs     => [ qw( this_dir that_dir ) ],
             interval => 2.0,             # Optional depending on underlying watcher
             filter   => sub { shift !~ /\.(swp|tmp)$/ },
             cb       => sub {

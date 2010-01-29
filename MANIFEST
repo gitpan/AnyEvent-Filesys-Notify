@@ -6,6 +6,9 @@ lib/AnyEvent/Filesys/Notify/Role/Fallback.pm
 lib/AnyEvent/Filesys/Notify/Role/Linux.pm
 lib/AnyEvent/Filesys/Notify/Role/Mac.pm
 MANIFEST			This list of files
+META.yml
+README
+samples/simple.pl
 t/00-load.t
 t/10-plugins.t
 t/11-plugin-default.t
@@ -19,5 +22,3 @@ t/99-podcoverage.t
 t/lib/TestSupport.pm
 t/perlcriticrc
 TODO
-README
-META.yml

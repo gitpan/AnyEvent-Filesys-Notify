@@ -10,7 +10,7 @@ use AnyEvent::Filesys::Notify::Event;
 use Carp;
 use Try::Tiny;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 has dirs        => ( is => 'ro', isa => 'ArrayRef[Str]', required => 1 );
 has cb          => ( is => 'rw', isa => 'CodeRef',       required => 1 );
@@ -151,16 +151,18 @@ sub _load_backend {
             apply_all_roles( $self, 'AnyEvent::Filesys::Notify::Role::Linux' );
         }
         catch {
-            croak
-              "Unable to load the Linux plugin. You may want to install Linux::INotify2 or specify 'no_external' (but that is very inefficient):\n$_";
+            croak "Unable to load the Linux plugin. You may want to install "
+              . "Linux::INotify2 or specify 'no_external' (but that is very "
+              . "inefficient):\n$_";
         }
     } elsif ( $^O eq 'darwin' ) {
         try {
             apply_all_roles( $self, 'AnyEvent::Filesys::Notify::Role::Mac' );
         }
         catch {
-            croak
-              "Unable to load the Mac plugin. You may want to install Mac::FSEvents or specify 'no_external' (but that is very inefficient):\n$_";
+            croak "Unable to load the Mac plugin. You may want to install "
+              . "Mac::FSEvents or specify 'no_external' (but that is very "
+              . "inefficient):\n$_";
         }
     } else {
         apply_all_roles( $self, 'AnyEvent::Filesys::Notify::Role::Fallback' );
@@ -182,7 +184,7 @@ AnyEvent::Filesys::Notify - An AnyEvent compatible module to monitor files/direc
     use AnyEvent::Filesys::Notify;
 
     my $notifier = AnyEvent::Filesys::Notify->new(
-        dir      => [ qw( this_dir that_dir ) ],
+        dirs     => [ qw( this_dir that_dir ) ],
         interval => 2.0,             # Optional depending on underlying watcher
         filter   => sub { shift !~ /\.(swp|tmp)$/ },
         cb       => sub {
