@@ -15,8 +15,8 @@ build_requires:
   Test::Without::Module: 0
   autodie: 0
 configure_requires:
-  Module::Build: 0.35
-generated_by: 'Module::Build version 0.3508'
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3603'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -25,7 +25,7 @@ name: AnyEvent-Filesys-Notify
 provides:
   AnyEvent::Filesys::Notify:
     file: lib/AnyEvent/Filesys/Notify.pm
-    version: 0.04
+    version: 0.05
   AnyEvent::Filesys::Notify::Event:
     file: lib/AnyEvent/Filesys/Notify/Event.pm
   AnyEvent::Filesys::Notify::Role::Fallback:
@@ -47,4 +47,4 @@ resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=AnyEvent-Filesys-Notify-Event
   license: http://dev.perl.org/licenses/
   repository: http://github.com/mvgrimes/AnyEvent-Filesys-Notify
-version: 0.04
+version: 0.05
