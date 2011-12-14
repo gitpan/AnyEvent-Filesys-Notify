@@ -1,10 +1,14 @@
 package AnyEvent::Filesys::Notify::Role::Linux;
 
+# ABSTRACT: Use Linux::Inotify2 to watch for changed files
+
 use Moose::Role;
 use namespace::autoclean;
 use AnyEvent;
 use Linux::Inotify2;
 use Carp;
+
+# use Scalar::Util qw(weaken);  # Attempt to address RT#57104, but alas...
 
 sub _init {
     my $self = shift;
@@ -16,6 +20,9 @@ sub _init {
     # modifications to files too.
     my $old_fs = $self->_old_fs;
     my @dirs = grep { $old_fs->{$_}->{is_dir} } keys %$old_fs;
+
+    # weaken $self; # Attempt to address RT#57104, but alas...
+
     for my $dir (@dirs) {
         $inotify->watch(
             $dir,
@@ -59,3 +66,28 @@ around '_process_events' => sub {
 };
 
 1;
+
+__END__
+
+=pod
+
+=head1 NAME
+
+AnyEvent::Filesys::Notify::Role::Linux - Use Linux::Inotify2 to watch for changed files
+
+=head1 VERSION
+
+version 0.06
+
+=head1 AUTHOR
+
+Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2010 by Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut

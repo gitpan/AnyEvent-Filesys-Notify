@@ -1,0 +1,85 @@
+{
+   "abstract" : "An AnyEvent compatible module to monitor files/directories for changes",
+   "author" : [
+      "Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.112150",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "AnyEvent-Filesys-Notify",
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "Data::Dump" : 0,
+            "Exporter" : 0,
+            "File::Basename" : 0,
+            "File::Find" : 0,
+            "File::Path" : 0,
+            "File::Spec" : 0,
+            "File::Temp" : 0,
+            "Test::Exception" : 0,
+            "Test::More" : "0.87",
+            "Test::Without::Module" : 0,
+            "autodie" : 0
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "Module::Build" : "0.38"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "AnyEvent" : 0,
+            "Carp" : 0,
+            "Cwd" : 0,
+            "File::Find::Rule" : 0,
+            "Mac::FSEvents" : 0,
+            "Moose" : 0,
+            "Try::Tiny" : 0,
+            "namespace::autoclean" : 0
+         }
+      }
+   },
+   "provides" : {
+      "AnyEvent::Filesys::Notify" : {
+         "file" : "lib/AnyEvent/Filesys/Notify.pm",
+         "version" : "0.06"
+      },
+      "AnyEvent::Filesys::Notify::Event" : {
+         "file" : "lib/AnyEvent/Filesys/Notify/Event.pm",
+         "version" : 0
+      },
+      "AnyEvent::Filesys::Notify::Role::Fallback" : {
+         "file" : "lib/AnyEvent/Filesys/Notify/Role/Fallback.pm",
+         "version" : 0
+      },
+      "AnyEvent::Filesys::Notify::Role::Linux" : {
+         "file" : "lib/AnyEvent/Filesys/Notify/Role/Linux.pm",
+         "version" : 0
+      },
+      "AnyEvent::Filesys::Notify::Role::Mac" : {
+         "file" : "lib/AnyEvent/Filesys/Notify/Role/Mac.pm",
+         "version" : 0
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "http://rt.cpan.org/NoAuth/Bugs.html?Dist=AnyEvent-Filesys-Notify-Event"
+      },
+      "license" : [
+         "http://dev.perl.org/licenses/"
+      ],
+      "repository" : {
+         "url" : "http://github.com/mvgrimes/AnyEvent-Filesys-Notify"
+      }
+   },
+   "version" : "0.06"
+}

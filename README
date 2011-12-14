@@ -2,6 +2,9 @@ NAME
     AnyEvent::Filesys::Notify - An AnyEvent compatible module to monitor
     files/directories for changes
 
+VERSION
+    version 0.06
+
 SYNOPSIS
         use AnyEvent::Filesys::Notify;
 
@@ -23,9 +26,9 @@ DESCRIPTION
     directories within an AnyEvent event loop. The heavy lifting is done by
     Linux::INotify2 or Mac::FSEvents on their respective O/S. A fallback
     which scans the directories at regular intervals is include for other
-    systems. See IMPLEMENTATIONS for more on the backends.
+    systems. See "IMPLEMENTATIONS" for more on the backends.
 
-    Events are passed to the callback (specified as a CodeRef to `cb' in the
+    Events are passed to the callback (specified as a CodeRef to "cb" in the
     constructor) in the form of AnyEvent::Filesys::Notify::Events.
 
 METHODS
@@ -48,9 +51,9 @@ METHODS
         for the AnyEvent::Filesys::Notify::Role::Fallback implementation.
 
         Specifies the latency for Mac::FSEvents for the
-        `AnyEvent::Filesys::Notify::Role::Mac' implementation.
+        "AnyEvent::Filesys::Notify::Role::Mac" implementation.
 
-        Ignored for the `AnyEvent::Filesys::Notify::Role::Linux'
+        Ignored for the "AnyEvent::Filesys::Notify::Role::Linux"
         implementation.
 
     filter
@@ -73,23 +76,23 @@ METHODS
     no_external
             no_external => 1,
 
-        Force the use of the Fallback watcher implementation. This is not
-        encouraged as the Fallback implement is very inefficient, but it
+        Force the use of the "Fallback" watcher implementation. This is not
+        encouraged as the "Fallback" implement is very inefficient, but it
         does not require either Linux::INotify2 nor Mac::FSEvents. Optional.
 
 WATCHER IMPLEMENTATIONS
   Linux
-    Uses Linux::INotify2 to monitor directories. Sets up an `AnyEvent->io'
-    watcher to monitor the `$inotify->fileno' filehandle.
+    Uses Linux::INotify2 to monitor directories. Sets up an "AnyEvent->io"
+    watcher to monitor the "$inotify->fileno" filehandle.
 
   Mac
-    Uses Mac::FSEvents to monitor directories. Sets up an `AnyEvent->io'
-    watcher to monitor the `$fsevent->watch' filehandle.
+    Uses Mac::FSEvents to monitor directories. Sets up an "AnyEvent->io"
+    watcher to monitor the "$fsevent->watch" filehandle.
 
   Fallback
     A simple scan of the watched directories at regular intervals. Sets up
-    an `AnyEvent->timer' watcher which is executed every `interval' seconds
-    (or fractions thereof). `interval' can be specified in the constructor
+    an "AnyEvent->timer" watcher which is executed every "interval" seconds
+    (or fractions thereof). "interval" can be specified in the constructor
     to AnyEvent::Filesys::Notify and defaults to 2.0 seconds.
 
     This is a very inefficient implementation. Use one of the others if
@@ -126,15 +129,14 @@ SEE ALSO
     Alternatives to this module Filesys::Notify::Simple, File::ChangeNotify.
 
 BUGS
-    Please report any bugs or suggestions at http://rt.cpan.org/
+    Please report any bugs or suggestions at <http://rt.cpan.org/>
 
 AUTHOR
     Mark Grimes, <mgrimes@cpan.org>
 
 COPYRIGHT AND LICENSE
-    Copyright (C) 2009 by Mark Grimes
+    This software is copyright (c) 2010 by Mark Grimes, <mgrimes@cpan.org>.
 
-    This library is free software; you can redistribute it and/or modify it
-    under the same terms as Perl itself, either Perl version 5.8.2 or, at
-    your option, any later version of Perl 5 you may have available.
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
 

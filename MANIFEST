@@ -13,8 +13,10 @@ t/00-load.t
 t/10-plugins.t
 t/11-plugin-default.t
 t/20-scan_fs.t
+t/21-scan_fs_links.t
 t/30-event.t
 t/31-notify-fallback.t
+t/40-bugs.t
 t/96-kwalitee.t
 t/97-critic.t
 t/98-pod.t
@@ -22,3 +24,15 @@ t/99-podcoverage.t
 t/lib/TestSupport.pm
 t/perlcriticrc
 TODO
+xt/check-changes.t
+xt/critic.t
+xt/fixme.t
+xt/hasversion.t
+xt/kwalitee.t
+xt/manifest.t
+xt/meta.t
+xt/minimumversion.t
+xt/perlcriticrc
+xt/pod-coverage.t
+xt/pod.t
+META.json

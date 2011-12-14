@@ -1,5 +1,7 @@
 package AnyEvent::Filesys::Notify;
 
+# ABSTRACT: An AnyEvent compatible module to monitor files/directories for changes
+
 use Moose;
 use Moose::Util qw(apply_all_roles);
 use namespace::autoclean;
@@ -10,7 +12,7 @@ use AnyEvent::Filesys::Notify::Event;
 use Carp;
 use Try::Tiny;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 has dirs        => ( is => 'ro', isa => 'ArrayRef[Str]', required => 1 );
 has cb          => ( is => 'rw', isa => 'CodeRef',       required => 1 );
@@ -68,11 +70,15 @@ sub _scan_fs {
     # Accept either an array of dirs or a array ref of dirs
     my @paths = ref $args[0] eq 'ARRAY' ? @{ $args[0] } : @args;
 
-    # Separated into two lines to avoid stat on files multiple times.
-    my %files = map { $_ => 1 } File::Find::Rule->in(@paths);
-    %files = map { abs_path($_) => _stat($_) } keys %files;
+    my $fs_stats = {};
 
-    return \%files;
+    for my $file ( File::Find::Rule->in(@paths) ) {
+        my $stat = _stat($file)
+          or next; # Skip files that we can't stat (ie, broken symlinks on ext4)
+        $fs_stats->{ abs_path($file) } = $stat;
+    }
+
+    return $fs_stats;
 }
 
 sub _diff_fs {
@@ -120,11 +126,16 @@ sub _is_path_modified {
     return;
 }
 
-# Taken from Filesys::Notify::Simple --Thanks Miyagawa
+# Originally taken from Filesys::Notify::Simple --Thanks Miyagawa
 sub _stat {
     my $path = shift;
 
     my @stat = stat $path;
+
+    # Return undefined if no stats can be retrieved, as it happens with broken
+    # symlinks (at least under ext4).
+    return undef unless @stat;
+
     return {
         path   => $path,
         mtime  => $stat[9],
@@ -175,9 +186,18 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 
+
+__END__
+
+=pod
+
 =head1 NAME
 
 AnyEvent::Filesys::Notify - An AnyEvent compatible module to monitor files/directories for changes
+
+=head1 VERSION
+
+version 0.06
 
 =head1 SYNOPSIS
 
@@ -311,7 +331,6 @@ are perfect for many situations. If one of their modules will work for you
 by all means use it, but if you are already using an event loop, this
 module may fit the bill.
 
-
 =head1 SEE ALSO
 
 Modules used to implement this module L<AnyEvent>, L<Mac::FSEvents>,
@@ -329,10 +348,9 @@ Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2009 by Mark Grimes
+This software is copyright (c) 2010 by Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.8.2 or,
-at your option, any later version of Perl 5 you may have available.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
