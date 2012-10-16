@@ -12,7 +12,7 @@ use AnyEvent::Filesys::Notify::Event;
 use Carp;
 use Try::Tiny;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 has dirs        => ( is => 'ro', isa => 'ArrayRef[Str]', required => 1 );
 has cb          => ( is => 'rw', isa => 'CodeRef',       required => 1 );
@@ -120,6 +120,7 @@ sub _diff_fs {
 sub _is_path_modified {
     my ( $old_path, $new_path ) = @_;
 
+    return 1 if $new_path->{mode} != $old_path->{mode};
     return   if $new_path->{is_dir};
     return 1 if $new_path->{mtime} != $old_path->{mtime};
     return 1 if $new_path->{size} != $old_path->{size};
@@ -140,6 +141,7 @@ sub _stat {
         path   => $path,
         mtime  => $stat[9],
         size   => $stat[7],
+        mode   => $stat[2],
         is_dir => -d _,
     };
 
@@ -186,7 +188,6 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 
-
 __END__
 
 =pod
@@ -197,7 +198,7 @@ AnyEvent::Filesys::Notify - An AnyEvent compatible module to monitor files/direc
 
 =head1 VERSION
 
-version 0.07
+version 0.08
 
 =head1 SYNOPSIS
 
@@ -348,7 +349,7 @@ Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>.
+This software is copyright (c) 2012 by Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

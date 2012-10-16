@@ -27,7 +27,7 @@ sub _init {
         $inotify->watch(
             $dir,
             IN_MODIFY | IN_CREATE | IN_DELETE | IN_DELETE_SELF |
-              IN_MOVE | IN_MOVE_SELF,
+              IN_MOVE | IN_MOVE_SELF | IN_ATTRIB,
             sub { my $e = shift; $self->_process_events($e); } );
     }
 
@@ -57,7 +57,7 @@ around '_process_events' => sub {
         $self->_fs_monitor->watch(
             $event->path,
             IN_MODIFY | IN_CREATE | IN_DELETE | IN_DELETE_SELF |
-                IN_MOVE | IN_MOVE_SELF,
+                IN_MOVE | IN_MOVE_SELF | IN_ATTRIB,
             sub { my $e = shift; $self->_process_events($e); } );
 
     }
@@ -77,7 +77,7 @@ AnyEvent::Filesys::Notify::Role::Linux - Use Linux::Inotify2 to watch for change
 
 =head1 VERSION
 
-version 0.07
+version 0.08
 
 =head1 AUTHOR
 
@@ -85,7 +85,7 @@ Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>.
+This software is copyright (c) 2012 by Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

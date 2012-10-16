@@ -20,7 +20,6 @@ sub is_deleted {
 
 1;
 
-
 __END__
 
 =pod
@@ -31,7 +30,7 @@ AnyEvent::Filesys::Notify::Event - Object to report changes in the monitored fil
 
 =head1 VERSION
 
-version 0.07
+version 0.08
 
 =head1 SYNOPSIS
 
@@ -97,7 +96,7 @@ True if C<$event-E<gt>type eq 'deleted'>.
 
 =head1 SEE ALSO
 
-L<AnyEvent::Filesys::Notify::Event>
+L<AnyEvent::Filesys::Notify>
 
 =head1 BUGS
 
@@ -109,7 +108,7 @@ Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>.
+This software is copyright (c) 2012 by Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
