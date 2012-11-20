@@ -6,6 +6,7 @@ lib/AnyEvent/Filesys/Notify/Role/Fallback.pm
 lib/AnyEvent/Filesys/Notify/Role/Linux.pm
 lib/AnyEvent/Filesys/Notify/Role/Mac.pm
 MANIFEST			This list of files
+META.json
 META.yml
 README
 samples/simple.pl
@@ -17,12 +18,7 @@ t/21-scan_fs_links.t
 t/30-event.t
 t/31-notify-fallback.t
 t/40-bugs.t
-t/96-kwalitee.t
-t/97-critic.t
-t/98-pod.t
-t/99-podcoverage.t
 t/lib/TestSupport.pm
-t/perlcriticrc
 TODO
 xt/check-changes.t
 xt/critic.t
@@ -35,4 +31,3 @@ xt/minimumversion.t
 xt/perlcriticrc
 xt/pod-coverage.t
 xt/pod.t
-META.json

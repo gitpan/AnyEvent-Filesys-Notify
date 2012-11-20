@@ -50,7 +50,7 @@
    "provides" : {
       "AnyEvent::Filesys::Notify" : {
          "file" : "lib/AnyEvent/Filesys/Notify.pm",
-         "version" : "0.09"
+         "version" : "0.10"
       },
       "AnyEvent::Filesys::Notify::Event" : {
          "file" : "lib/AnyEvent/Filesys/Notify/Event.pm",
@@ -72,7 +72,7 @@
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
-         "web" : "http://rt.cpan.org/NoAuth/Bugs.html?Dist=AnyEvent-Filesys-Notify-Event"
+         "web" : "http://rt.cpan.org/NoAuth/Bugs.html?Dist=AnyEvent-Filesys-Notify"
       },
       "license" : [
          "http://dev.perl.org/licenses/"
@@ -81,5 +81,5 @@
          "url" : "http://github.com/mvgrimes/AnyEvent-Filesys-Notify"
       }
    },
-   "version" : "0.09"
+   "version" : "0.10"
 }
