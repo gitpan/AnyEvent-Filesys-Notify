@@ -12,7 +12,7 @@ use AnyEvent::Filesys::Notify::Event;
 use Carp;
 use Try::Tiny;
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
 has dirs        => ( is => 'ro', isa => 'ArrayRef[Str]', required => 1 );
 has cb          => ( is => 'rw', isa => 'CodeRef',       required => 1 );
@@ -177,6 +177,15 @@ sub _load_backend {
               . "Mac::FSEvents or specify 'no_external' (but that is very "
               . "inefficient):\n$_";
         }
+    } elsif ( $^O eq 'freebsd' ) {
+        try {
+            apply_all_roles( $self, 'AnyEvent::Filesys::Notify::Role::FreeBSD' );
+        }
+        catch {
+            croak "Unable to load the FreeBSD plugin. You may want to install "
+              . "IO::KQueue or specify 'no_external' (but that is very "
+              . "inefficient):\n$_";
+        }
     } else {
         apply_all_roles( $self, 'AnyEvent::Filesys::Notify::Role::Fallback' );
     }
@@ -198,7 +207,7 @@ AnyEvent::Filesys::Notify - An AnyEvent compatible module to monitor files/direc
 
 =head1 VERSION
 
-version 0.10
+version 0.11
 
 =head1 SYNOPSIS
 
@@ -342,6 +351,11 @@ Alternatives to this module L<Filesys::Notify::Simple>, L<File::ChangeNotify>.
 =head1 BUGS
 
 Please report any bugs or suggestions at L<http://rt.cpan.org/>
+
+=head1 CONTRIBUTORS
+
+Thanks to Gasol Wu E<lt>gasol.wu@gmail.comE<gt> who contributed the FreeBSD
+support for IO::KQueue.
 
 =head1 AUTHOR
 
