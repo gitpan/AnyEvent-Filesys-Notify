@@ -3,6 +3,7 @@ Changes
 lib/AnyEvent/Filesys/Notify.pm
 lib/AnyEvent/Filesys/Notify/Event.pm
 lib/AnyEvent/Filesys/Notify/Role/Fallback.pm
+lib/AnyEvent/Filesys/Notify/Role/FreeBSD.pm
 lib/AnyEvent/Filesys/Notify/Role/Linux.pm
 lib/AnyEvent/Filesys/Notify/Role/Mac.pm
 MANIFEST			This list of files
