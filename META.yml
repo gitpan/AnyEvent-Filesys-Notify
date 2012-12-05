@@ -26,7 +26,7 @@ name: AnyEvent-Filesys-Notify
 provides:
   AnyEvent::Filesys::Notify:
     file: lib/AnyEvent/Filesys/Notify.pm
-    version: 0.14
+    version: 0.15
   AnyEvent::Filesys::Notify::Event:
     file: lib/AnyEvent/Filesys/Notify/Event.pm
     version: 0
@@ -55,4 +55,4 @@ resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=AnyEvent-Filesys-Notify
   license: http://dev.perl.org/licenses/
   repository: http://github.com/mvgrimes/AnyEvent-Filesys-Notify
-version: 0.14
+version: 0.15
