@@ -1,4 +1,4 @@
-package AnyEvent::Filesys::Notify::Role::Linux;
+package AnyEvent::Filesys::Notify::Role::Inotify2;
 
 # ABSTRACT: Use Linux::Inotify2 to watch for changed files
 
@@ -73,11 +73,11 @@ __END__
 
 =head1 NAME
 
-AnyEvent::Filesys::Notify::Role::Linux - Use Linux::Inotify2 to watch for changed files
+AnyEvent::Filesys::Notify::Role::Inotify2 - Use Linux::Inotify2 to watch for changed files
 
 =head1 VERSION
 
-version 0.15
+version 0.17
 
 =head1 AUTHOR
 
@@ -85,7 +85,7 @@ Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>.
+This software is copyright (c) 2013 by Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

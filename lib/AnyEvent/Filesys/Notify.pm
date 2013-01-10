@@ -12,12 +12,14 @@ use AnyEvent::Filesys::Notify::Event;
 use Carp;
 use Try::Tiny;
 
-our $VERSION = '0.15';
+our $VERSION = '0.17';
+my $AEFN = 'AnyEvent::Filesys::Notify';
 
 has dirs        => ( is => 'ro', isa => 'ArrayRef[Str]', required => 1 );
 has cb          => ( is => 'rw', isa => 'CodeRef',       required => 1 );
 has interval    => ( is => 'ro', isa => 'Num',           default  => 2 );
 has no_external => ( is => 'ro', isa => 'Bool',          default  => 0 );
+has backend     => ( is => 'ro', isa => 'Str',           default  => '' );
 has filter      => ( is => 'rw', isa => 'RegexpRef|CodeRef' );
 has _fs_monitor => ( is => 'rw', );
 has _old_fs => ( is => 'rw', isa => 'HashRef' );
@@ -157,37 +159,44 @@ sub _stat {
 sub _load_backend {
     my $self = shift;
 
-    if ( $self->no_external ) {
-        apply_all_roles( $self, 'AnyEvent::Filesys::Notify::Role::Fallback' );
-    } elsif ( $^O eq 'linux' ) {
-        try {
-            apply_all_roles( $self, 'AnyEvent::Filesys::Notify::Role::Linux' );
+    if ( $self->backend ) {
+
+        # Use the AEFN::Role prefix unless the backend starts with a +
+        my $prefix = "${AEFN}::Role::";
+        my $backend = $self->backend;
+        $backend = $prefix . $backend unless $backend =~ s{^\+}{};
+
+        try { apply_all_roles( $self, $backend ); }
+        catch {
+            croak "Unable to load the specified backend ($backend). You may "
+              . "need to install Linux::INotify2, Mac::FSEvents or IO::KQueue:"
+              . "\n$_";
         }
+    } elsif ( $self->no_external ) {
+        apply_all_roles( $self, "${AEFN}::Role::Fallback" );
+    } elsif ( $^O eq 'linux' ) {
+        try { apply_all_roles( $self, "${AEFN}::Role::Inotify2" ); }
         catch {
             croak "Unable to load the Linux plugin. You may want to install "
               . "Linux::INotify2 or specify 'no_external' (but that is very "
               . "inefficient):\n$_";
         }
     } elsif ( $^O eq 'darwin' ) {
-        try {
-            apply_all_roles( $self, 'AnyEvent::Filesys::Notify::Role::Mac' );
-        }
+        try { apply_all_roles( $self, "${AEFN}::Role::FSEvents" ); }
         catch {
             croak "Unable to load the Mac plugin. You may want to install "
               . "Mac::FSEvents or specify 'no_external' (but that is very "
               . "inefficient):\n$_";
         }
     } elsif ( $^O eq 'freebsd' ) {
-        try {
-            apply_all_roles( $self, 'AnyEvent::Filesys::Notify::Role::FreeBSD' );
-        }
+        try { apply_all_roles( $self, "${AEFN}::Role::KQueue" ); }
         catch {
             croak "Unable to load the FreeBSD plugin. You may want to install "
               . "IO::KQueue or specify 'no_external' (but that is very "
               . "inefficient):\n$_";
         }
     } else {
-        apply_all_roles( $self, 'AnyEvent::Filesys::Notify::Role::Fallback' );
+        apply_all_roles( $self, "${AEFN}::Role::Fallback" );
     }
 
     return 1;
@@ -207,7 +216,7 @@ AnyEvent::Filesys::Notify - An AnyEvent compatible module to monitor files/direc
 
 =head1 VERSION
 
-version 0.15
+version 0.17
 
 =head1 SYNOPSIS
 
@@ -285,13 +294,24 @@ A CodeRef that is called when a modification to the monitored directory(ies) is
 detected. The callback is passed a list of
 L<AnyEvent::Filesys::Notify::Event>s. Required.
 
+=item backend
+
+    backend => 'Fallback',
+    backend => 'FreeBSD',
+    backend => '+My::Filesys::Notify::Role::Backend',
+
+Force the use of the specified backend. The backend is assumed to have the
+C<AnyEvent::Filesys::Notify::Role> prefix, but you can force a fully qualified
+name by prefixing it with a plus. Optional.
+
 =item no_external
 
     no_external => 1,
 
-Force the use of the L</Fallback> watcher implementation. This is not
-encouraged as the L</Fallback> implement is very inefficient, but it 
-does not require either L<Linux::INotify2> nor L<Mac::FSEvents>. Optional.
+This is retained for backward compatibility. Using C<backend => 'Fallback'>
+is preferred. Force the use of the L</Fallback> watcher implementation. This is
+not encouraged as the L</Fallback> implement is very inefficient, but it does
+not require either L<Linux::INotify2> nor L<Mac::FSEvents>. Optional.
 
 =back
 
@@ -352,6 +372,11 @@ Alternatives to this module L<Filesys::Notify::Simple>, L<File::ChangeNotify>.
 
 Please report any bugs or suggestions at L<http://rt.cpan.org/>
 
+Forcing the C<IO::KQueue> backend on a Mac does not seem to work.  The
+C<IO::KQueue> backend seems to be working fine on FreeBSD. I don't have the
+experience or time to fix it on a Mac.  I would greatly appreciate any help
+troubleshooting this.
+
 =head1 CONTRIBUTORS
 
 Thanks to Gasol Wu E<lt>gasol.wu@gmail.comE<gt> who contributed the FreeBSD
@@ -363,7 +388,7 @@ Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>.
+This software is copyright (c) 2013 by Mark Grimes, E<lt>mgrimes@cpan.orgE<gt>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

@@ -50,26 +50,26 @@
    "provides" : {
       "AnyEvent::Filesys::Notify" : {
          "file" : "lib/AnyEvent/Filesys/Notify.pm",
-         "version" : "0.15"
+         "version" : "0.17"
       },
       "AnyEvent::Filesys::Notify::Event" : {
          "file" : "lib/AnyEvent/Filesys/Notify/Event.pm",
+         "version" : 0
+      },
+      "AnyEvent::Filesys::Notify::Role::FSEvents" : {
+         "file" : "lib/AnyEvent/Filesys/Notify/Role/FSEvents.pm",
          "version" : 0
       },
       "AnyEvent::Filesys::Notify::Role::Fallback" : {
          "file" : "lib/AnyEvent/Filesys/Notify/Role/Fallback.pm",
          "version" : 0
       },
-      "AnyEvent::Filesys::Notify::Role::FreeBSD" : {
-         "file" : "lib/AnyEvent/Filesys/Notify/Role/FreeBSD.pm",
+      "AnyEvent::Filesys::Notify::Role::Inotify2" : {
+         "file" : "lib/AnyEvent/Filesys/Notify/Role/Inotify2.pm",
          "version" : 0
       },
-      "AnyEvent::Filesys::Notify::Role::Linux" : {
-         "file" : "lib/AnyEvent/Filesys/Notify/Role/Linux.pm",
-         "version" : 0
-      },
-      "AnyEvent::Filesys::Notify::Role::Mac" : {
-         "file" : "lib/AnyEvent/Filesys/Notify/Role/Mac.pm",
+      "AnyEvent::Filesys::Notify::Role::KQueue" : {
+         "file" : "lib/AnyEvent/Filesys/Notify/Role/KQueue.pm",
          "version" : 0
       }
    },
@@ -85,5 +85,5 @@
          "url" : "http://github.com/mvgrimes/AnyEvent-Filesys-Notify"
       }
    },
-   "version" : "0.15"
+   "version" : "0.17"
 }

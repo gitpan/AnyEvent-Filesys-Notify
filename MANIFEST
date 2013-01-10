@@ -3,9 +3,9 @@ Changes
 lib/AnyEvent/Filesys/Notify.pm
 lib/AnyEvent/Filesys/Notify/Event.pm
 lib/AnyEvent/Filesys/Notify/Role/Fallback.pm
-lib/AnyEvent/Filesys/Notify/Role/FreeBSD.pm
-lib/AnyEvent/Filesys/Notify/Role/Linux.pm
-lib/AnyEvent/Filesys/Notify/Role/Mac.pm
+lib/AnyEvent/Filesys/Notify/Role/FSEvents.pm
+lib/AnyEvent/Filesys/Notify/Role/Inotify2.pm
+lib/AnyEvent/Filesys/Notify/Role/KQueue.pm
 MANIFEST			This list of files
 META.json
 META.yml
@@ -18,6 +18,8 @@ t/20-scan_fs.t
 t/21-scan_fs_links.t
 t/30-event.t
 t/31-notify-fallback.t
+t/32-specify-backend.t
+t/33-specify-kqueue.t
 t/40-bugs.t
 t/lib/TestSupport.pm
 TODO
