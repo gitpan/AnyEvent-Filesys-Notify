@@ -50,7 +50,7 @@
    "provides" : {
       "AnyEvent::Filesys::Notify" : {
          "file" : "lib/AnyEvent/Filesys/Notify.pm",
-         "version" : "0.20_01"
+         "version" : "0.20_02"
       },
       "AnyEvent::Filesys::Notify::Event" : {
          "file" : "lib/AnyEvent/Filesys/Notify/Event.pm",
@@ -85,5 +85,5 @@
          "url" : "http://github.com/mvgrimes/AnyEvent-Filesys-Notify"
       }
    },
-   "version" : "0.20_01"
+   "version" : "0.20_02"
 }
