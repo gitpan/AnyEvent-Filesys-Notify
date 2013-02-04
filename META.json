@@ -39,9 +39,9 @@
             "AnyEvent" : "0",
             "Carp" : "0",
             "Cwd" : "0",
-            "File::Find::Rule" : "0",
             "Mac::FSEvents" : "0",
             "Moose" : "0",
+            "Path::Iterator::Rule" : "0",
             "Try::Tiny" : "0",
             "namespace::autoclean" : "0"
          }
@@ -50,7 +50,7 @@
    "provides" : {
       "AnyEvent::Filesys::Notify" : {
          "file" : "lib/AnyEvent/Filesys/Notify.pm",
-         "version" : "0.20_02"
+         "version" : "0.21"
       },
       "AnyEvent::Filesys::Notify::Event" : {
          "file" : "lib/AnyEvent/Filesys/Notify/Event.pm",
@@ -73,7 +73,7 @@
          "version" : 0
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "web" : "http://rt.cpan.org/NoAuth/Bugs.html?Dist=AnyEvent-Filesys-Notify"
@@ -85,5 +85,5 @@
          "url" : "http://github.com/mvgrimes/AnyEvent-Filesys-Notify"
       }
    },
-   "version" : "0.20_02"
+   "version" : "0.21"
 }

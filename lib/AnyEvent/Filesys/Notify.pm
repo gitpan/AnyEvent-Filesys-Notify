@@ -6,13 +6,13 @@ use Moose;
 use Moose::Util qw(apply_all_roles);
 use namespace::autoclean;
 use AnyEvent;
-use File::Find::Rule;
+use Path::Iterator::Rule;
 use Cwd qw/abs_path/;
 use AnyEvent::Filesys::Notify::Event;
 use Carp;
 use Try::Tiny;
 
-our $VERSION = '0.20_02';
+our $VERSION = '0.21';
 my $AEFN = 'AnyEvent::Filesys::Notify';
 
 has dirs        => ( is => 'ro', isa => 'ArrayRef[Str]', required => 1 );
@@ -74,7 +74,9 @@ sub _scan_fs {
 
     my $fs_stats = {};
 
-    for my $file ( File::Find::Rule->in(@paths) ) {
+    my $rule = Path::Iterator::Rule->new;
+    my $next = $rule->iter(@paths);
+    while ( my $file = $next->() ) {
         my $stat = _stat($file)
           or next; # Skip files that we can't stat (ie, broken symlinks on ext4)
         $fs_stats->{ abs_path($file) } = $stat;
@@ -216,7 +218,7 @@ AnyEvent::Filesys::Notify - An AnyEvent compatible module to monitor files/direc
 
 =head1 VERSION
 
-version 0.20_02
+version 0.21
 
 =head1 SYNOPSIS
 

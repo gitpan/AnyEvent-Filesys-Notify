@@ -23,7 +23,9 @@ t/33-specify-kqueue.t
 t/40-bugs.t
 t/lib/TestSupport.pm
 TODO
+xt/bench.t
 xt/check-changes.t
+xt/create-data.sh
 xt/critic.t
 xt/fixme.t
 xt/hasversion.t
@@ -34,3 +36,4 @@ xt/minimumversion.t
 xt/perlcriticrc
 xt/pod-coverage.t
 xt/pod.t
+xt/profile.t
