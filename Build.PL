@@ -4,17 +4,23 @@ my $build = Module::Build->new(
     license       => 'perl',
     create_readme => 1,
 
+    configure_requires => {
+        'Module::Build'         => '0.4004',
+    },
+
     requires => {
-        'Moose'                => 0,
-        'AnyEvent'             => 0,
-        'Path::Iterator::Rule' => 0,
-        'Cwd'                  => 0,
-        'Carp'                 => 0,
-        'Try::Tiny'            => 0,
-        'namespace::autoclean' => 0,
-        ( $^O eq 'linux'   ? ( 'Linux::Inotify2' => 0 ) : () ),
-        ( $^O eq 'darwin'  ? ( 'Mac::FSEvents'   => 0 ) : () ),
-        ( $^O eq 'freebsd' ? ( 'IO::KQueue'      => 0 ) : () ),
+        'Moo'                          => '1.003001',
+        'MooX::late'                   => '0.014',
+        'MooX::Types::MooseLike::Base' => '0.25',
+        'AnyEvent'                     => '7.05',
+        'Path::Iterator::Rule'         => '1.005',
+        'Cwd'                          => '3.40',
+        'Carp'                         => '1.20',
+        'Try::Tiny'                    => '0.18',
+        'namespace::sweep'             => '0.006',
+        ( $^O eq 'linux'   ? ( 'Linux::Inotify2' => '1.22' ) : () ),
+        ( $^O eq 'darwin'  ? ( 'Mac::FSEvents'   => '0.10' ) : () ),
+        ( $^O eq 'freebsd' ? ( 'IO::KQueue'      => '0.34' ) : () ),
     },
 
     build_requires => {

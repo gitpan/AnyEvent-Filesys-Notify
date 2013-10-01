@@ -2,8 +2,9 @@ package AnyEvent::Filesys::Notify::Event;
 
 # ABSTRACT: Object to report changes in the monitored filesystem
 
-use Moose;
-use namespace::autoclean;
+use Moo;
+use MooX::late;
+use namespace::sweep;
 
 has path => ( is => 'ro', isa => 'Str', required => 1 );
 has type => ( is => 'ro', isa => 'Str', required => 1 );
@@ -31,7 +32,7 @@ AnyEvent::Filesys::Notify::Event - Object to report changes in the monitored fil
 
 =head1 VERSION
 
-version 0.22
+version 0.23_10
 
 =head1 SYNOPSIS
 

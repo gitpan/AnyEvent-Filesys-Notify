@@ -2,8 +2,9 @@ package AnyEvent::Filesys::Notify::Role::FSEvents;
 
 # ABSTRACT: Use Mac::FSEvents to watch for changed files
 
-use Moose::Role;
-use namespace::autoclean;
+use Moo::Role;
+use MooX::late;
+use namespace::sweep;
 use AnyEvent;
 use Mac::FSEvents;
 use Carp;
@@ -47,7 +48,7 @@ AnyEvent::Filesys::Notify::Role::FSEvents - Use Mac::FSEvents to watch for chang
 
 =head1 VERSION
 
-version 0.22
+version 0.23_10
 
 =head1 AUTHOR
 

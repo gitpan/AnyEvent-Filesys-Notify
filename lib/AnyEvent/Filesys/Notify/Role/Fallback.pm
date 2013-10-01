@@ -2,8 +2,9 @@ package AnyEvent::Filesys::Notify::Role::Fallback;
 
 # ABSTRACT: Fallback method of file watching (check in regular intervals)
 
-use Moose::Role;
-use namespace::autoclean;
+use Moo::Role;
+use MooX::late;
+use namespace::sweep;
 use AnyEvent;
 use Carp;
 
@@ -33,7 +34,7 @@ AnyEvent::Filesys::Notify::Role::Fallback - Fallback method of file watching (ch
 
 =head1 VERSION
 
-version 0.22
+version 0.23_10
 
 =head1 AUTHOR
 

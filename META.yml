@@ -15,9 +15,9 @@ build_requires:
   Test::Without::Module: 0
   autodie: 0
 configure_requires:
-  Module::Build: 0.4
+  Module::Build: 0.4004
 dynamic_config: 1
-generated_by: 'Module::Build version 0.4, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Module::Build version 0.4007, CPAN::Meta::Converter version 2.120351'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -26,7 +26,7 @@ name: AnyEvent-Filesys-Notify
 provides:
   AnyEvent::Filesys::Notify:
     file: lib/AnyEvent/Filesys/Notify.pm
-    version: 0.22
+    version: 0.23_10
   AnyEvent::Filesys::Notify::Event:
     file: lib/AnyEvent/Filesys/Notify/Event.pm
     version: 0
@@ -43,16 +43,18 @@ provides:
     file: lib/AnyEvent/Filesys/Notify/Role/KQueue.pm
     version: 0
 requires:
-  AnyEvent: 0
-  Carp: 0
-  Cwd: 0
-  Mac::FSEvents: 0
-  Moose: 0
-  Path::Iterator::Rule: 0
-  Try::Tiny: 0
-  namespace::autoclean: 0
+  AnyEvent: 7.05
+  Carp: 1.20
+  Cwd: 3.40
+  Mac::FSEvents: 0.10
+  Moo: 1.003001
+  MooX::Types::MooseLike::Base: 0.25
+  MooX::late: 0.014
+  Path::Iterator::Rule: 1.005
+  Try::Tiny: 0.18
+  namespace::sweep: 0.006
 resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=AnyEvent-Filesys-Notify
   license: http://dev.perl.org/licenses/
   repository: http://github.com/mvgrimes/AnyEvent-Filesys-Notify
-version: 0.22
+version: 0.23_10

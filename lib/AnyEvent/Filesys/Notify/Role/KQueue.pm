@@ -2,8 +2,9 @@ package AnyEvent::Filesys::Notify::Role::KQueue;
 
 # ABSTRACT: Use IO::KQueue to watch for changed files
 
-use Moose::Role;
-use namespace::autoclean;
+use Moo::Role;
+use MooX::late;
+use namespace::sweep;
 use AnyEvent;
 use IO::KQueue;
 use Carp;
@@ -111,7 +112,7 @@ AnyEvent::Filesys::Notify::Role::KQueue - Use IO::KQueue to watch for changed fi
 
 =head1 VERSION
 
-version 0.22
+version 0.23_10
 
 =head1 CONTRIBUTORS
 

@@ -7,9 +7,7 @@ lib/AnyEvent/Filesys/Notify/Role/FSEvents.pm
 lib/AnyEvent/Filesys/Notify/Role/Inotify2.pm
 lib/AnyEvent/Filesys/Notify/Role/KQueue.pm
 MANIFEST			This list of files
-META.json
-META.yml
-README
+README.md
 samples/simple.pl
 t/00-load.t
 t/10-plugins.t
@@ -37,3 +35,6 @@ xt/perlcriticrc
 xt/pod-coverage.t
 xt/pod.t
 xt/profile.t
+README
+META.yml
+META.json

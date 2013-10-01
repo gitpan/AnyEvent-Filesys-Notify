@@ -2,8 +2,9 @@ package AnyEvent::Filesys::Notify::Role::Inotify2;
 
 # ABSTRACT: Use Linux::Inotify2 to watch for changed files
 
-use Moose::Role;
-use namespace::autoclean;
+use Moo::Role;
+use MooX::late;
+use namespace::sweep;
 use AnyEvent;
 use Linux::Inotify2;
 use Carp;
@@ -77,7 +78,7 @@ AnyEvent::Filesys::Notify::Role::Inotify2 - Use Linux::Inotify2 to watch for cha
 
 =head1 VERSION
 
-version 0.22
+version 0.23_10
 
 =head1 AUTHOR
 
