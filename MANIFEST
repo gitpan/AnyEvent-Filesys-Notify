@@ -18,6 +18,7 @@ t/30-event.t
 t/31-notify-fallback.t
 t/32-specify-backend.t
 t/33-specify-kqueue.t
+t/34-parse_events.t
 t/40-bugs.t
 t/lib/TestSupport.pm
 TODO

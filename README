@@ -3,7 +3,7 @@ NAME
     files/directories for changes
 
 VERSION
-    version 0.24
+    version 1.10
 
 SYNOPSIS
         use AnyEvent::Filesys::Notify;
@@ -16,6 +16,7 @@ SYNOPSIS
                 my (@events) = @_;
                 # ... process @events ...
             },
+            parse_events => 1,  # Improves efficiency on certain platforms
         );
 
         # enter an event loop, see AnyEvent documentation
@@ -90,6 +91,16 @@ METHODS
         implementation. This is not encouraged as the "Fallback" implement
         is very inefficient, but it does not require either Linux::INotify2
         nor Mac::FSEvents. Optional.
+
+    parse_events
+            parse_events => 1,
+
+        In backends that support it (currently INotify2), parse the events
+        instead of rescanning file system for changed "stat()" information.
+        Note, that this might cause slight changes in behavior. In
+        particular, the Inotify2 backend will generate an additional
+        'modified' event when a file changes (once when opened for write,
+        and once when modified).
 
 WATCHER IMPLEMENTATIONS
   INotify2 (Linux)
