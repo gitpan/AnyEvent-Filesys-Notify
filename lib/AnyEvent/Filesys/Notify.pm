@@ -13,7 +13,7 @@ use AnyEvent::Filesys::Notify::Event;
 use Carp;
 use Try::Tiny;
 
-our $VERSION = '1.10';
+our $VERSION = '1.11';
 my $AEFN = 'AnyEvent::Filesys::Notify';
 
 has dirs        => ( is => 'ro', isa => 'ArrayRef[Str]', required => 1 );
@@ -200,7 +200,7 @@ sub _load_backend {
               . "Mac::FSEvents or specify 'no_external' (but that is very "
               . "inefficient):\n$_";
         }
-    } elsif ( $^O eq 'freebsd' ) {
+    } elsif ( $^O =~ /freebsd/ ) {
         try { Moo::Role->apply_roles_to_object( $self, "${AEFN}::Role::KQueue" ); }
         catch {
             croak "Unable to load the FreeBSD plugin. You may want to install "
@@ -226,7 +226,7 @@ AnyEvent::Filesys::Notify - An AnyEvent compatible module to monitor files/direc
 
 =head1 VERSION
 
-version 1.10
+version 1.11
 
 =head1 SYNOPSIS
 
@@ -252,7 +252,7 @@ This module provides a cross platform interface to monitor files and
 directories within an L<AnyEvent> event loop. The heavy lifting is done by
 L<Linux::INotify2> or L<Mac::FSEvents> on their respective O/S. A fallback
 which scans the directories at regular intervals is include for other systems.
-See L</IMPLEMENTATIONS> for more on the backends.
+See L</WATCHER IMPLEMENTATIONS> for more on the backends.
 
 Events are passed to the callback (specified as a CodeRef to C<cb> in the
 constructor) in the form of L<AnyEvent::Filesys::Notify::Event>s.

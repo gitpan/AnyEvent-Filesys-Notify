@@ -3,7 +3,7 @@ NAME
     files/directories for changes
 
 VERSION
-    version 1.10
+    version 1.11
 
 SYNOPSIS
         use AnyEvent::Filesys::Notify;
@@ -27,7 +27,7 @@ DESCRIPTION
     directories within an AnyEvent event loop. The heavy lifting is done by
     Linux::INotify2 or Mac::FSEvents on their respective O/S. A fallback
     which scans the directories at regular intervals is include for other
-    systems. See "IMPLEMENTATIONS" for more on the backends.
+    systems. See "WATCHER IMPLEMENTATIONS" for more on the backends.
 
     Events are passed to the callback (specified as a CodeRef to "cb" in the
     constructor) in the form of AnyEvent::Filesys::Notify::Events.
