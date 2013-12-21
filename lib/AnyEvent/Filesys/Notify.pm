@@ -13,17 +13,17 @@ use AnyEvent::Filesys::Notify::Event;
 use Carp;
 use Try::Tiny;
 
-our $VERSION = '1.11';
+our $VERSION = '1.12_01';
 my $AEFN = 'AnyEvent::Filesys::Notify';
 
-has dirs        => ( is => 'ro', isa => 'ArrayRef[Str]', required => 1 );
-has cb          => ( is => 'rw', isa => 'CodeRef',       required => 1 );
-has interval    => ( is => 'ro', isa => 'Num',           default  => 2 );
-has no_external => ( is => 'ro', isa => 'Bool',          default  => 0 );
-has backend     => ( is => 'ro', isa => 'Str',           default  => '' );
-has filter      => ( is => 'rw', isa => 'RegexpRef|CodeRef' );
-has parse_events=> ( is => 'rw', isa => 'Bool',          default => 0 );
-has _fs_monitor => ( is => 'rw', );
+has dirs         => ( is => 'ro', isa => 'ArrayRef[Str]', required => 1 );
+has cb           => ( is => 'rw', isa => 'CodeRef',       required => 1 );
+has interval     => ( is => 'ro', isa => 'Num',           default  => 2 );
+has no_external  => ( is => 'ro', isa => 'Bool',          default  => 0 );
+has backend      => ( is => 'ro', isa => 'Str',           default  => '' );
+has filter       => ( is => 'rw', isa => 'RegexpRef|CodeRef' );
+has parse_events => ( is => 'rw', isa => 'Bool',          default  => 0 );
+has _fs_monitor  => ( is => 'rw', );
 has _old_fs => ( is => 'rw', isa => 'HashRef' );
 has _watcher => ( is => 'rw', );
 
@@ -46,8 +46,8 @@ sub _process_events {
 
     my @events;
 
-    if( $self->parse_events and $self->can('_parse_events') ){
-        @events = $self->_apply_filter( $self->_parse_events( @raw_events ) );
+    if ( $self->parse_events and $self->can('_parse_events') ) {
+        @events = $self->_apply_filter( $self->_parse_events(@raw_events) );
     } else {
         my $new_fs = _scan_fs( $self->dirs );
         @events = $self->_apply_filter( _diff_fs( $self->_old_fs, $new_fs ) );
@@ -174,7 +174,7 @@ sub _load_backend {
     if ( $self->backend ) {
 
         # Use the AEFN::Role prefix unless the backend starts with a +
-        my $prefix = "${AEFN}::Role::";
+        my $prefix  = "${AEFN}::Role::";
         my $backend = $self->backend;
         $backend = $prefix . $backend unless $backend =~ s{^\+}{};
 
@@ -187,23 +187,31 @@ sub _load_backend {
     } elsif ( $self->no_external ) {
         Moo::Role->apply_roles_to_object( $self, "${AEFN}::Role::Fallback" );
     } elsif ( $^O eq 'linux' ) {
-        try { Moo::Role->apply_roles_to_object( $self, "${AEFN}::Role::Inotify2"); }
+        try {
+            Moo::Role->apply_roles_to_object( $self,
+                "${AEFN}::Role::Inotify2" );
+        }
         catch {
             croak "Unable to load the Linux plugin. You may want to install "
               . "Linux::INotify2 or specify 'no_external' (but that is very "
               . "inefficient):\n$_";
         }
     } elsif ( $^O eq 'darwin' ) {
-        try { Moo::Role->apply_roles_to_object( $self, "${AEFN}::Role::FSEvents" ); }
+        try {
+            Moo::Role->apply_roles_to_object( $self,
+                "${AEFN}::Role::FSEvents" );
+        }
         catch {
             croak "Unable to load the Mac plugin. You may want to install "
               . "Mac::FSEvents or specify 'no_external' (but that is very "
               . "inefficient):\n$_";
         }
-    } elsif ( $^O =~ /freebsd/ ) {
-        try { Moo::Role->apply_roles_to_object( $self, "${AEFN}::Role::KQueue" ); }
+    } elsif ( $^O =~ /bsd/ ) {
+        try {
+            Moo::Role->apply_roles_to_object( $self, "${AEFN}::Role::KQueue" );
+        }
         catch {
-            croak "Unable to load the FreeBSD plugin. You may want to install "
+            croak "Unable to load the BSD plugin. You may want to install "
               . "IO::KQueue or specify 'no_external' (but that is very "
               . "inefficient):\n$_";
         }
@@ -226,7 +234,7 @@ AnyEvent::Filesys::Notify - An AnyEvent compatible module to monitor files/direc
 
 =head1 VERSION
 
-version 1.11
+version 1.12_01
 
 =head1 SYNOPSIS
 
@@ -308,7 +316,7 @@ L<AnyEvent::Filesys::Notify::Event>s. Required.
 =item backend
 
     backend => 'Fallback',
-    backend => 'FreeBSD',
+    backend => 'KQueue',
     backend => '+My::Filesys::Notify::Role::Backend',
 
 Force the use of the specified backend. The backend is assumed to have the
@@ -348,7 +356,7 @@ watcher to monitor the C<$inotify-E<gt>fileno> filehandle.
 Uses L<Mac::FSEvents> to monitor directories. Sets up an C<AnyEvent-E<gt>io>
 watcher to monitor the C<$fsevent-E<gt>watch> filehandle.
 
-=head2 KQueue (FreeBSD/Mac)
+=head2 KQueue (BSD/Mac)
 
 Uses L<IO::KQueue> to monitor directories. Sets up an C<AnyEvent-E<gt>io>
 watcher to monitor the C<IO::KQueue> object.
@@ -404,13 +412,13 @@ Alternatives to this module L<Filesys::Notify::Simple>, L<File::ChangeNotify>.
 Please report any bugs or suggestions at L<http://rt.cpan.org/>
 
 Forcing the C<IO::KQueue> backend on a Mac does not seem to work.  The
-C<IO::KQueue> backend seems to be working fine on FreeBSD. I don't have the
+C<IO::KQueue> backend seems to be working fine on BSD. I don't have the
 experience or time to fix it on a Mac.  I would greatly appreciate any help
 troubleshooting this.
 
 =head1 CONTRIBUTORS
 
-Thanks to Gasol Wu E<lt>gasol.wu@gmail.comE<gt> who contributed the FreeBSD
+Thanks to Gasol Wu E<lt>gasol.wu@gmail.comE<gt> who contributed the BSD
 support for IO::KQueue.
 
 =head1 AUTHOR
