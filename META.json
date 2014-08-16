@@ -45,14 +45,15 @@
             "MooX::late" : "0.014",
             "Path::Iterator::Rule" : "1.005",
             "Try::Tiny" : "0.18",
-            "namespace::sweep" : "0.006"
+            "namespace::sweep" : "0.006",
+            "perl" : "5.006"
          }
       }
    },
    "provides" : {
       "AnyEvent::Filesys::Notify" : {
          "file" : "lib/AnyEvent/Filesys/Notify.pm",
-         "version" : "1.14"
+         "version" : "1.15"
       },
       "AnyEvent::Filesys::Notify::Event" : {
          "file" : "lib/AnyEvent/Filesys/Notify/Event.pm",
@@ -87,5 +88,5 @@
          "url" : "http://github.com/mvgrimes/AnyEvent-Filesys-Notify"
       }
    },
-   "version" : "1.14"
+   "version" : "1.15"
 }
